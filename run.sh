@@ -1,18 +1,24 @@
 #!/bin/bash
 
-ARQUIVO_ZIP="lib.zip"
+# Caminhos
+JAVA_FX_LIB="lib"
+JDBC_DRIVER="lib/mysql-connector-java-8.4.0.jar"
+OUT_DIR="out"
 
-# descompactar
-if ls | grep -q $ARQUIVO_ZIP; then
-    echo "Descompactando..."
-    unzip $ARQUIVO_ZIP
-    rm $ARQUIVO_ZIP
+# Criar pasta de saída se não existir
+mkdir -p "$OUT_DIR"
+
+echo "Compilando fontes..."
+
+javac --module-path "$JAVA_FX_LIB" --add-modules javafx.controls \
+      -cp "$JDBC_DRIVER" -d "$OUT_DIR" model/*.java src/*.java
+
+if [ $? -ne 0 ]; then
+    echo "Erro na compilação"
+    exit 1
 fi
 
-# compilar    
-javac --module-path lib --add-modules javafx.controls -d out src/*.java
+echo "Executando aplicação..."
 
-# executar
-java --module-path lib --add-modules javafx.controls -cp out Main
-
-
+java --module-path "$JAVA_FX_LIB" --add-modules javafx.controls \
+     -cp "$OUT_DIR:$JDBC_DRIVER" src.Main

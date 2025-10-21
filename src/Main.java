@@ -1,19 +1,16 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import model.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public class Main extends Application {
-    @Override
-    public void start(Stage stage) {
-        Label label = new Label("Olá, JavaFX no VSCode!");
-        Scene scene = new Scene(label, 400, 200);
-        stage.setScene(scene);
-        stage.setTitle("JavaFX VSCode");
-        stage.show();
-    }
-
+public class Main {
     public static void main(String[] args) {
-        launch();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            if (conn != null) {
+                System.out.println("Conexão com banco de dados realizada com sucesso!");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
