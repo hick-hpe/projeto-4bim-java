@@ -1,6 +1,6 @@
-import model.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
+import model.DatabaseConnection;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,7 +10,6 @@ public class Main {
             }
         } catch (SQLException e) {
             System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

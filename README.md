@@ -29,11 +29,11 @@ projeto/
 ├── controller/
 ├── db/
 ├── lib/
-├── model/
-│   └── DbConnection.java
-│   └── Cliente.java
 ├── src/
-│   └──  Main.java
+├──     model/
+│       └── DbConnection.java
+│       └── Cliente.java
+│       └──  Main.java
 ├── view/
 ```
 
